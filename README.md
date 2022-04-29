@@ -54,6 +54,17 @@ Your finished project must include all of the following requirements (further in
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+
+   The difference between using sessions and JWTs is that JWTs store all the information about the user within the token itself while with session cookies, there is only a session-id that does not contain any information about the user except time of login and expiration, but is a random string generated and signed by the secret key. JWTs are sent in the authorization header of every HTTP request to a backend API, while session cookies are sent automatically in the request as a req.session object.
+
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
+
+   bcryptjs allows us to store user passwords in a database very securely. bcryptjs hashes the user's password through a hashing function and adds salt to make the string stored in the database uncrackable by attackers. Whenever the user goes to login to their account, that password input is put through bcrypt's hashing function and is compared to the one stored on the database. With bcrypt's hashing algorithm, the password can never be turned back into its orginal form.
+
 3. How are unit tests different from integration and end-to-end testing?
+
+   Unit tests test a piece of code in isolation, while integration tests check if different modules are working fine when combined together. End-to-end testing tests the entire application. It simulates a real user scenario from start to finish.
+
 4. How does _Test Driven Development_ change the way we write applications and tests?
+
+   Test Driven Development (TTD) changes the way we write applications and tests because it requires creating tests first before the code is written and then once the test is written, the development process starts. After both the test and development is complete, then the code can be refactored to keep the program DRY and efficient.
