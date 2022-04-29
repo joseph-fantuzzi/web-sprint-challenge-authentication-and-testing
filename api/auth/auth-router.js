@@ -4,8 +4,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../users/users-model");
 const { checkUserUnique } = require("../middleware/check-user-unique");
+const { checkReqBody } = require("../middleware/check-req-body");
 
-router.post("/register", checkUserUnique, (req, res, next) => {
+router.post("/register", checkReqBody, checkUserUnique, (req, res, next) => {
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -32,9 +33,8 @@ router.post("/register", checkUserUnique, (req, res, next) => {
       the response body should include a string exactly as follows: "username taken".
   */
 
-  const { username, password } = req.body;
-  const hashedPassword = bcrypt.hashSync(password, SALT);
-  const user = { username, password: hashedPassword };
+  const hashedPassword = bcrypt.hashSync(req.user.password, SALT);
+  const user = { username: req.user.username, password: hashedPassword };
   User.insert(user)
     .then((newUser) => {
       res.status(201).json(newUser);
