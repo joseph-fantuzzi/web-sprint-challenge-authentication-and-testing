@@ -8,9 +8,9 @@ const checkReqBody = (req, res, next) => {
     username.trim() === "" ||
     password.trim() === ""
   ) {
-    next({ status: 400, message: "username and password required" });
+    next({ status: 422, message: "username and password required" });
   } else {
-    req.user = { username: username.trim(), password: password.trim() };
+    req.newUser = { username: username.trim(), password: password.trim() };
     next();
   }
 };
